@@ -267,7 +267,7 @@ class MangaTranslator():
         Returns path to result folder where intermediate images are saved when using verbose flag
         or web mode input/result images are cached.
         """
-        return "/home/nhi/Image"
+        return "/home/nhivo/Image"
         #return os.path.join(BASE_PATH, 'result', self.result_sub_folder, path)
 
     def add_progress_hook(self, ph):
@@ -331,7 +331,7 @@ class MangaTranslatorWeb(MangaTranslator):
         params = params or {}
         ctx = Context(**params)
         self._preprocess_params(ctx)
-        temp = Image.open("/home/nhi/Image/input.jpg")
+        temp = Image.open("/home/nhivo/Image/input.jpg")
         img = np.array(temp.convert('RGB'))
         ctx.img_rgb = ctx.input = img
         ctx.result = None
@@ -345,13 +345,13 @@ class MangaTranslatorWeb(MangaTranslator):
         await self.maskrefinement(ctx)
         await self.inpainting(ctx)
         await self.rendering(ctx)
-        cv2.imwrite("/home/nhi/Image/result.png", cv2.cvtColor(ctx.img_rendered, cv2.COLOR_RGB2BGR))
+        cv2.imwrite("/home/nhivo/Image/result.png", cv2.cvtColor(ctx.img_rendered, cv2.COLOR_RGB2BGR))
 
     async def bboxes(self, ctx):
         img_bbox_raw = np.copy(ctx.img_rgb)
         for txtln in ctx.textlines:
             cv2.polylines(img_bbox_raw, [txtln.pts], True, color=(255, 0, 0), thickness=2)
-        cv2.imwrite("/home/nhi/Image/bboxes_unfiltered.png", cv2.cvtColor(img_bbox_raw, cv2.COLOR_RGB2BGR))
+        cv2.imwrite("/home/nhivo/Image/bboxes_unfiltered.png", cv2.cvtColor(img_bbox_raw, cv2.COLOR_RGB2BGR))
         #self.img_bbox_raw = img_bbox_raw
 
     async def ocr(self, ctx):
@@ -362,7 +362,7 @@ class MangaTranslatorWeb(MangaTranslator):
     async def textlinemerge(self, ctx):
         ctx.text_regions = await self._run_textline_merge(ctx)
         bboxes = visualize_textblocks(cv2.cvtColor(ctx.img_rgb, cv2.COLOR_BGR2RGB), ctx.text_regions)
-        cv2.imwrite("/home/nhi/Image/bboxes.png", bboxes)
+        cv2.imwrite("/home/nhivo/Image/bboxes.png", bboxes)
 
     async def translation(self, ctx):
         ctx.text_regions = await self._run_text_translation(ctx)
@@ -373,11 +373,11 @@ class MangaTranslatorWeb(MangaTranslator):
     async def inpainting(self, ctx):
         inpaint_input_img = await dispatch_inpainting('none', ctx.img_rgb, ctx.mask, ctx.inpainting_size,
                                                           self.using_gpu, self.verbose)
-        cv2.imwrite("/home/nhi/Image/inpaint_input.png", cv2.cvtColor(inpaint_input_img, cv2.COLOR_RGB2BGR))
-        cv2.imwrite("/home/nhi/Image/mask_final.png", ctx.mask)
+        cv2.imwrite("/home/nhivo/Image/inpaint_input.png", cv2.cvtColor(inpaint_input_img, cv2.COLOR_RGB2BGR))
+        cv2.imwrite("/home/nhivo/Image/mask_final.png", ctx.mask)
         ctx.img_inpainted = await self._run_inpainting(ctx)
         ctx.gimp_mask = np.dstack((cv2.cvtColor(ctx.img_inpainted, cv2.COLOR_RGB2BGR), ctx.mask))
-        cv2.imwrite("/home/nhi/Image/inpainted.png", cv2.cvtColor(ctx.img_inpainted, cv2.COLOR_RGB2BGR))
+        cv2.imwrite("/home/nhivo/Image/inpainted.png", cv2.cvtColor(ctx.img_inpainted, cv2.COLOR_RGB2BGR))
 
     async def rendering(self, ctx):
         ctx.img_rendered = await self._run_text_rendering(ctx)

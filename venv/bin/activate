@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/nhi/manga-image-translator/venv"
+VIRTUAL_ENV="/home/nhivo/Documents/manga-image-translator/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

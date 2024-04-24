@@ -1,4 +1,4 @@
-#!/home/nhi/manga-image-translator/venv/bin/python3
+#!/home/nhivo/Documents/manga-image-translator/venv/bin/python3
 __author__ = 'jszheng'
 import optparse
 import sys

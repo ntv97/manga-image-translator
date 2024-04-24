@@ -1,4 +1,4 @@
-#!/home/nhi/manga-image-translator/venv/bin/python3
+#!/home/nhivo/Documents/manga-image-translator/venv/bin/python3
 from __future__ import absolute_import, division, print_function
 
 from PIL import Image
